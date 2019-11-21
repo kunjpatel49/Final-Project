@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+}
+
+:root {
+    --mdc-theme-primary: #D50032;
+}
+
+.template {
+    display: none;
+}

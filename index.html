@@ -2,18 +2,61 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@0.40.0/dist/material-components-web.min.css">
+    <script src="https://kit.fontawesome.com/8d23004cc3.js" crossorigin="anonymous"></script>
     <!-- Include dexie.js -->
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
-
 </head>
 
 <body>
-    <script src="main.js"></script>
+    <!-- top nav bar -->
+    <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+                <div class="mdc-top-app-bar__title">Untitled</div>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <a id="photo-icon" href="#" class="material-icons mdc-top-app-bar__action-item"
+                    aria-label="Take A Photo">photo</a>
+                <a id="grade-icon" href="#" class="material-icons mdc-top-app-bar__action-item"
+                    aria-label="Join the Mailing List">grade</a>
+        </div>
+    </header>
+
+    <!-- the navigation drawer -->
+    <aside class="mdc-drawer mdc-drawer--modal" data-mdc-auto-init="MDCDrawer">
+        <div class="mdc-drawer__header">
+            <h3 class="mdc-drawer__title">Menu</h3>
+        </div>
+        <div class="mdc-drawer__content">
+            <nav class="mdc-list">
+                <a data-screen="home" class="mdc-list-item mdc-list-item--activated" href="#" tabindex="0"
+                    aria-selected="true"><i class="material-icons mdc-list-item__graphic"
+                        aria-hidden="true">home</i>Home</a>
+                <a data-screen="about" class="mdc-list-item mdc-list-item" href="#" tabindex="1"
+                    aria-selected="true"><i class="fas fa-info-circle material-icons mdc-list-item__graphic"
+                        aria-hidden="true"></i>About</a>
+                <a data-screen="contact" class="mdc-list-item mdc-list-item" href="#" tabindex="2"
+                    aria-selected="true"><i class="fas fa-envelope-open material-icons mdc-list-item__graphic"
+                        aria-hidden="true"></i>Contact Us</a>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="mdc-drawer-scrim"></div>
+    <div id="contentArea">
+        <div class="mdc-top-app-bar--fixed-adjust"></div>
+        <div id="content" class="mdc-typography--body1"></div>
+    </div>
+
+    <script src="scripts/movies.js"></script>
+    <script src="scripts/navbar.js"></script>
 </body>
 
 </html>
