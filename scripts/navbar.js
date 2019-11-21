@@ -19,3 +19,8 @@ for (let i = 0; i < navs.length; i++) {
     })
 };
 // ================================== MCW (Navbar) End ==============================================
+
+$(".full-landing-image").ripples({
+    resolution: 256,
+    perturbance: 0.04,
+  });

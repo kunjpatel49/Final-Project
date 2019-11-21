@@ -6,16 +6,19 @@
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@0.40.0/dist/material-components-web.min.css">
     <script src="https://kit.fontawesome.com/8d23004cc3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-fab@1.0.0/jquery-fab.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery-fab@1.0.0/jquery-fab.min.js"></script>
     <!-- Include dexie.js -->
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 </head>
 
-<body>
+<body id="content" class="full-landing-image">
     <!-- top nav bar -->
-    <header class="mdc-top-app-bar">
+    <header class="mdc-top-app-bar grad">
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                 <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
@@ -30,7 +33,7 @@
     </header>
 
     <!-- the navigation drawer -->
-    <aside class="mdc-drawer mdc-drawer--modal" data-mdc-auto-init="MDCDrawer">
+    <aside class="mdc-drawer mdc-drawer--modal grad" data-mdc-auto-init="MDCDrawer">
         <div class="mdc-drawer__header">
             <h3 class="mdc-drawer__title">Menu</h3>
         </div>
@@ -39,8 +42,8 @@
                 <a data-screen="home" class="mdc-list-item mdc-list-item--activated" href="#" tabindex="0"
                     aria-selected="true"><i class="material-icons mdc-list-item__graphic"
                         aria-hidden="true">home</i>Home</a>
-                <a data-screen="about" class="mdc-list-item mdc-list-item" href="#" tabindex="1"
-                    aria-selected="true"><i class="fas fa-info-circle material-icons mdc-list-item__graphic"
+                <a id="abt" data-screen="about" class="mdc-list-item mdc-list-item" href="screens/about.html" tabindex="1" aria-selected="true"><i
+                        class="fas fa-info-circle material-icons mdc-list-item__graphic"
                         aria-hidden="true"></i>About</a>
                 <a data-screen="contact" class="mdc-list-item mdc-list-item" href="#" tabindex="2"
                     aria-selected="true"><i class="fas fa-envelope-open material-icons mdc-list-item__graphic"
@@ -53,6 +56,30 @@
     <div id="contentArea">
         <div class="mdc-top-app-bar--fixed-adjust"></div>
         <div id="content" class="mdc-typography--body1"></div>
+    </div>
+
+    <!-- FAB button -->
+    <!-- <div class="fab fab-right-bottom"> -->
+            <!-- FAB speed dial actions with labels -->
+            <!-- <div class="fab-buttons fab-buttons-top">
+              <a href="#" class="fab-label-button">
+                <span>1</span>
+                <span class="fab-label">Action 1</span>
+              </a>
+              <a href="#" class="fab-label-button">
+                <span>2</span>
+                <span class="fab-label">Action 2</span>
+              </a>
+            </div>
+          </div> -->
+
+
+                        <!----------- Search Bar ----------->
+    <div class="search-box">
+        <input id="input" class = "search-txt" type = "text" placeholder="Type to Search">
+        <a id="search" class = "search-btn" href="#">
+                <i class="fas fa-search"></i>
+        </a>
     </div>
 
     <script src="scripts/movies.js"></script>
