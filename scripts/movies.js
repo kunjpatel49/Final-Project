@@ -47,4 +47,20 @@ $.get(endpoint, function (response) {
 /**
  * load screen content via AJAX
 **/
+hideScreens();
 
+
+    function hideScreens() {
+      $(".content").hide();
+    }
+
+
+    $(document).ready(function() {
+      $(".nav").on("click", function(){
+        hideScreens();
+        var target = $(this).attr("href");
+        $(target).show();
+        $(target).load("screens/" + target.replace("#","") + ".html");
+      });
+
+    });
