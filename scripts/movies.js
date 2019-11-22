@@ -4,6 +4,8 @@ var apiKey = "HjQceOl63KGTrvpUhcUrpzbbz2gAgbKn";
 var dataPoint = endpoint + "?api-key=" + apiKey;
 var resp;
 
+
+
 // =================================== Dexie Setup =================================================
 
 const db = new Dexie("WatchList");
@@ -29,28 +31,18 @@ function getElem(array) {
 
 var userInput;
 $('#search').on('click', function () {
-    // $(".content").hide();
     userInput = $('#input').val();
-    var target = $(this).attr("href");
-    console.log(target);
-    // $(target).show();
-    $(target).load("screens/" + "results.html");
+    $('#content').load("screens/" + "results.html");
+    return false;
   });
 
 
 // ==============================================================================================
 
-// ================================ AJAX Load Page ==============================================
-
-// function loadScreen(screenName) {
-//     $("body.content").load("./screens/" + screenName + ".html", function () {
-//         console.log(screenName + " loaded");
-//     });
-// }
-
 // ==============================================================================================
-
+$(document).ready(function() {
 $("#abt").on('click', function(){
-    var target = $(this).attr("href");
-    $(target).load("screens/" + "about.html");
+    $("#content").load("screens/" + "about.html");
+    return false;
+});
 });
