@@ -1,4 +1,3 @@
-
 var i = 0;
 var endpoint = "https://api.nytimes.com/svc/movies/v2/reviews/search.json?outputType=JSON&api-key=HjQceOl63KGTrvpUhcUrpzbbz2gAgbKn";
 var apiKey = "HjQceOl63KGTrvpUhcUrpzbbz2gAgbKn";
@@ -8,7 +7,7 @@ var resp;
 // =================================== Dexie Setup =================================================
 
 const db = new Dexie("WatchList");
-                                   /* Database Schema */
+/* Database Schema */
 db.version(1).stores({
     movies: 'titles, rating'
 });
@@ -16,51 +15,42 @@ db.version(1).stores({
 console.log(db.movies.get('Ford v Ferrari'));
 
 db.open().catch((error) => {
-    console.log(error.stack || error);
+    console.log(error);
 });
 
-// =================================================================================================
+// ===============================================================================================
 
 // loop through array of 
-function getElem(array){
-    
+function getElem(array) {
+
 }
 
-$.get(endpoint, function (response) {
-    resp = response.results;
-    console.log(resp);
-    for(var i = 0; i < resp.length; i++){
-        // $('body').append("<img src='" + resp[i].multimedia.src + "'>");
-        db.movies.put({titles: resp[i].display_title, rating: resp[i].mpaa_rating});
-    }
-});
+// ============================= Data Fetch from New York Times ===================================
 
-// $("#abt").click(function(){
-//     $("#div1").load("demo_test.txt", function(responseTxt, statusTxt, xhr){
-//       if(statusTxt == "success")
-//         alert("External content loaded successfully!");
-//       if(statusTxt == "error")
-//         alert("Error: " + xhr.status + ": " + xhr.statusText);
+var userInput;
+$('#search').on('click', function () {
+    // $(".content").hide();
+    userInput = $('#input').val();
+    var target = $(this).attr("href");
+    console.log(target);
+    // $(target).show();
+    $(target).load("screens/" + "results.html");
+  });
+
+
+// ==============================================================================================
+
+// ================================ AJAX Load Page ==============================================
+
+// function loadScreen(screenName) {
+//     $("body.content").load("./screens/" + screenName + ".html", function () {
+//         console.log(screenName + " loaded");
 //     });
-//   }); 
+// }
 
-/**
- * load screen content via AJAX
-**/
-hideScreens();
+// ==============================================================================================
 
-
-    function hideScreens() {
-      $(".content").hide();
-    }
-
-
-    $(document).ready(function() {
-      $(".nav").on("click", function(){
-        hideScreens();
-        var target = $(this).attr("href");
-        $(target).show();
-        $(target).load("screens/" + target.replace("#","") + ".html");
-      });
-
-    });
+$("#abt").on('click', function(){
+    var target = $(this).attr("href");
+    $(target).load("screens/" + "about.html");
+});

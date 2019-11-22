@@ -68,3 +68,26 @@ body {
 .template {
     display: none;
 }
+
+ul {
+    top: 70%;
+    position: relative;
+    width: 450px;
+    margin: 100px auto 0;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+ul li {
+    display: flex;
+    background-image: linear-gradient(120deg, #3498db, #8e44ad);
+    padding: 10px 20px;
+    margin: 5px 0;
+    transition: .5s;
+    color : #fff;
+}
+
+ul li:hover {
+    transform: scale(1.06);
+    background: #ff3772;
+}
