@@ -90,3 +90,14 @@ ul li:hover {
     transform: scale(1.06);
     background: #ff3772;
 }
+
+.box{
+    width: 450px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    margin-top: 5%;
+    color: white;
+    font-family: 'Century Gothic',sans-serif;
+  }

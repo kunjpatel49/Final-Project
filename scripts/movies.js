@@ -34,15 +34,28 @@ $('#search').on('click', function () {
     userInput = $('#input').val();
     $('#content').load("screens/" + "results.html");
     return false;
-  });
+});
 
 
 // ==============================================================================================
 
+$(document).ready(function () {
+    $("#abt").on('click', function () {
+        $("#content").load("screens/" + "about.html");
+        return false;
+    });
+});
+$(document).ready(function () {
+    $("#photo-icon").on('click', function () {
+        $("#content").load("screens/" + "profile.html");
+        return false;
+    });
+});
+// $(document).ready(function () {
+//     $("#map").on('click', function () {
+//         $("#content").load("screens/" + "maps.html");
+//         return false;
+//     });
+// });
+
 // ==============================================================================================
-$(document).ready(function() {
-$("#abt").on('click', function(){
-    $("#content").load("screens/" + "about.html");
-    return false;
-});
-});
