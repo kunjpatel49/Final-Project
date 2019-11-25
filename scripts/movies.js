@@ -9,7 +9,7 @@ var resp;
 const db = new Dexie("WatchList");
 /* Database Schema */
 db.version(1).stores({
-    movies: 'titles, rating'
+    movies: 'id++, titles, rating, location'
 });
 
 console.log(db.movies.get('Ford v Ferrari'));
@@ -19,6 +19,31 @@ db.open().catch((error) => {
 });
 
 // ===============================================================================================
+
+/* ===============================================================================================
+: : Get user's current location
+ ================================================================================================*/
+
+var mylat;
+var mylng;
+function getLocation() {
+    if(navigator.geolocation){
+        var x = navigator.geolocation;
+        x.getCurrentPosition(success);
+
+        function success(position) {
+            mylat = position.coords.latitude;
+            mylng = position.coords.longitude;
+            console.log(mylat, mylng);
+            db.movies.put({location: mylat, mylng});
+        }
+    }
+    else{
+        alert("Geolocation is not supported by your browser, but no worries you still can search by entering your zipcode.");
+    }
+}
+// need to get location earlier because of latencies and device's GPS response time
+getLocation();
 
 // ============================= Data Fetch from New York Times ===================================
 
@@ -41,6 +66,13 @@ $('#search').on('click', function () {
     }
 });
 
+// if user chooses to search by their current location, load maps.html
+$('#locationUse').on('click',function(){
+    userInput = true;
+    $("#loadUse").load("screens/" + "maps.html");
+    return false;
+})
+
 // if user clicks home from navbar, load home.html 
 $('#home').on('click',function(){
     $("#loadUse").load("screens/" + "home.html");
@@ -52,13 +84,6 @@ $('#goHome').on('click',function(){
     $("#loadUse").load("screens/" + "home.html");
     return false;
 })
-
-// // if user chooses to search by their current location, load maps.html
-// $('#locationUse').on('click',function(){
-//     useLocation = true;
-//     $("#loadUse").load("screens/" + "maps.html");
-//     return false;
-// })
 
 // ==============================================================================================
 

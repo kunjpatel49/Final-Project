@@ -14,47 +14,75 @@
     }
 </style>
 <ul id="list" class="list">
-    </ul>
+</ul>
 <script>
-        document.body.style.backgroundImage = "linear-gradient(120deg, #3498db, #8e44ad)";
-        // construct the url with parameter values
-        var apikey = "y5qfmebb7u43cmwd3evtj8hw";
-        var baseUrl = "https://data.tmsapi.com/v1.1";
-        var showtimesUrl = baseUrl + '/movies/showings';
-        var zipCode = userInput; 
-        var d = new Date();
-        var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    console.log(userInput);
+    document.body.style.backgroundImage = "linear-gradient(120deg, #3498db, #8e44ad)";
+    // construct the url with parameter values
+    var apikey = "y5qfmebb7u43cmwd3evtj8hw";
+    var baseUrl = "https://data.tmsapi.com/v1.1";
+    var showtimesUrl = baseUrl + '/movies/showings';
+    var zipCode = userInput;
+    var d = new Date();
+    var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+ 
+
+  
+    getLocation();
+    if(mylat==undefined || mylng == undefined){
+        getLocation();
+    }
+    if(userInput === true){
+        $(document).ready(function () {
+            console.log("lat: " + mylat + " lng: " + mylng);
+            // send off the query
+                $.ajax({
+                url: showtimesUrl,
+                data: {
+                    startDate: today,
+                    lat: mylat,
+                    lng: mylng,
+                    jsonp: "dataHandler",
+                    api_key: apikey
+                },
+                dataType: "jsonp",
+            });
+        });
+    }
+    else{
+
         $(document).ready(function () {
             // send off the query
                 $.ajax({
-                    url: showtimesUrl,
-                    data: {
-                        startDate: today,
-                        zip: userInput,
-                        jsonp: "dataHandler",
-                        api_key: apikey
-                    },
-                    dataType: "jsonp",
-                });
-        });
-    
-        // callback to handle the results
-        
-        function dataHandler(data) {
-            $('ul.list').append('<li>Found ' + data.length + ' movies showing within 5 miles of ' + zipCode +
-                ':</li>');
-            console.log(data);
-            $.each(data, function (index, movie) {
-                var movieData = '<div><p>Location: ' + movie.showtimes[0].theatre.name +
-                    '</p><br/>';
-                movieData += movie.title;
-                if (movie.ratings) {
-                    movieData += ' (' + movie.ratings[0].code + ')'
-                };
-                $('ul.list').append("<li>" + movieData +
-                    "<p><a href='" +  movie.showtimes[0].ticketURI +
-                        "'>Get Tickets</a></p>"
-                    +"<span></span></li></div>");
+                url: showtimesUrl,
+                data: {
+                    startDate: today,
+                    zip: userInput,
+                    jsonp: "dataHandler",
+                    api_key: apikey
+                },
+                dataType: "jsonp",
             });
-        }
-    </script>
+        });
+    }
+
+    // callback to handle the results
+
+    function dataHandler(data) {
+        $('ul.list').append('<li>Found ' + data.length + ' movies showing within 5 miles of ' + zipCode +
+            ':</li>');
+        console.log(data);
+        $.each(data, function (index, movie) {
+            var movieData = '<div><p>Location: ' + movie.showtimes[0].theatre.name +
+                '</p><br/>';
+            movieData += movie.title;
+            if (movie.ratings) {
+                movieData += ' (' + movie.ratings[0].code + ')'
+            };
+            $('ul.list').append("<li>" + movieData +
+                "<p><a href='" + movie.showtimes[0].ticketURI +
+                "'>Get Tickets</a></p>" +
+                "<span></span></li></div>");
+        });
+    }
+</script>
