@@ -30,32 +30,49 @@ function getElem(array) {
 // ============================= Data Fetch from New York Times ===================================
 
 var userInput;
+
 $('#search').on('click', function () {
     userInput = $('#input').val();
-    $('#content').load("screens/" + "results.html");
-    return false;
+
+    // if user inputs a movie name, load results.html 
+    if(isNaN(userInput)){
+        $('#loadUse').load("screens/" + "results.html");
+        return false;
+    }
+
+    // if user inputs a zipcode, load maps.html 
+    else{
+        $('.search-box').hide();
+        $("#loadUse").load("screens/" + "maps.html");
+        return false;
+    }
 });
 
+// if user clicks home from navbar, load home.html 
+$('#home').on('click',function(){
+    $("#loadUse").load("screens/" + "home.html");
+    return false;
+})
+
+// if user clicks forelook, load home.html
+$('#goHome').on('click',function(){
+    $("#loadUse").load("screens/" + "home.html");
+    return false;
+})
 
 // ==============================================================================================
 
 $(document).ready(function () {
     $("#abt").on('click', function () {
-        $("#content").load("screens/" + "about.html");
+        $("#loadUse").load("screens/" + "about.html");
         return false;
     });
 });
 $(document).ready(function () {
     $("#photo-icon").on('click', function () {
-        $("#content").load("screens/" + "profile.html");
+        $("#loadUse").load("screens/" + "profile.html");
         return false;
     });
 });
-// $(document).ready(function () {
-//     $("#map").on('click', function () {
-//         $("#content").load("screens/" + "maps.html");
-//         return false;
-//     });
-// });
 
 // ==============================================================================================

@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <title>Forelook</title>
+    <base href="/">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
@@ -26,7 +28,9 @@
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                 <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
-                <div class="mdc-top-app-bar__title">Forelook</div>
+                <div id = "goHome" class="mdc-top-app-bar__title">
+                    Forelook
+                </div>
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
                 <a id="photo-icon" href="" class="material-icons mdc-top-app-bar__action-item"
@@ -43,7 +47,7 @@
         </div>
         <div class="mdc-drawer__content">
             <nav class="mdc-list">
-                <a data-screen="home" class="mdc-list-item mdc-list-item--activated" href="#" tabindex="0"
+                <a id="home" data-screen="home" class="mdc-list-item mdc-list-item--activated" href="#" tabindex="0"
                     aria-selected="true"><i class="material-icons mdc-list-item__graphic"
                         aria-hidden="true">home</i>Home</a>
                 <a id="abt" data-screen="about" class="nav mdc-list-item mdc-list-item" href="" tabindex="1"
@@ -52,7 +56,7 @@
                 <a data-screen="contact" class="mdc-list-item mdc-list-item" href="#" tabindex="2"
                     aria-selected="true"><i class="fas fa-envelope-open material-icons mdc-list-item__graphic"
                         aria-hidden="true"></i>Contact Us</a>
-                <a id = "nearMe" data-screen="maps" class="mdc-list-item mdc-list-item" href="screens/maps.html" tabindex="2"
+                <a id = "nearMe" data-screen="maps" class="mdc-list-item mdc-list-item" href="" tabindex="3"
                     aria-selected="true"><i class="material-icons">
                             local_movies
                             </i>Movies Near Me</a>
@@ -71,25 +75,27 @@
     <!-- FAB button -->
 
 
-    <div class = "box">
-            <h1>Welcome to Forelook</h1>
-            <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics reviews from the New York Times<br>
-            And booking is very simple, Just navigate to Movies Near Me page and enter your zipcode and all the movies avilable in your 5 mile radius will shown to you with links to buys tickets.
-            </h5>
-    </div>
+    <div id = "loadUse">
+        <div class = "box">
+                <h1>Welcome to Forelook</h1>
+                <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics reviews from the New York Times<br>
+                And booking is very simple, Just enter your zipcode and all the movies avilable in your 5 mile radius will shown to you with links to buy tickets.
+                </h5>
+        </div>
 
-    <!----------- Search Bar ----------->
-    <div class="search-box">
-        <input id="input" class="search-txt" type="text" placeholder="Type to Search">
-        <a id="search" class="search-btn" href="">
-            <i class="fas fa-search"></i>
-        </a>
-    </div>
+        <!----------- Search Bar ----------->
+        <div class="search-box">
+            <input id="input" class="search-txt" type="text" placeholder="Enter Movie Name or Zipcode">
+            <a id="search" class="search-btn" href="">
+                <i class="fas fa-search"></i>
+            </a>
+        </div>
+        <ul id="list" class="list">
+            </ul>
+   </div>
 
     <script src="scripts/movies.js"></script>
     <script src="scripts/navbar.js"></script>
-    <ul id="list" class="list">
-    </ul>
 
 </body>
 
