@@ -4,8 +4,6 @@ var apiKey = "HjQceOl63KGTrvpUhcUrpzbbz2gAgbKn";
 var dataPoint = endpoint + "?api-key=" + apiKey;
 var resp;
 
-
-
 // =================================== Dexie Setup =================================================
 
 const db = new Dexie("WatchList");
@@ -22,15 +20,10 @@ db.open().catch((error) => {
 
 // ===============================================================================================
 
-// loop through array of 
-function getElem(array) {
-
-}
-
 // ============================= Data Fetch from New York Times ===================================
 
 var userInput;
-
+var useLocation;
 $('#search').on('click', function () {
     userInput = $('#input').val();
 
@@ -60,6 +53,13 @@ $('#goHome').on('click',function(){
     return false;
 })
 
+// // if user chooses to search by their current location, load maps.html
+// $('#locationUse').on('click',function(){
+//     useLocation = true;
+//     $("#loadUse").load("screens/" + "maps.html");
+//     return false;
+// })
+
 // ==============================================================================================
 
 $(document).ready(function () {
@@ -73,6 +73,31 @@ $(document).ready(function () {
         $("#loadUse").load("screens/" + "profile.html");
         return false;
     });
+});
+
+// enter key press event handler
+$('#input').keypress(function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+        userInput = $('#input').val();
+
+        // if user inputs a movie name, load results.html 
+        if(isNaN(userInput)){
+            $('#loadUse').load("screens/" + "results.html");
+            return false;
+        }
+    
+        // if user inputs a zipcode, load maps.html 
+        else{
+            $('.search-box').hide();
+            $("#loadUse").load("screens/" + "maps.html");
+            return false;
+        }  
+    }
+    //Stop the event from propogation to other handlers
+    //If this line will be removed, then keypress event handler attached 
+    //at document level will also be triggered
+    event.stopPropagation();
 });
 
 // ==============================================================================================

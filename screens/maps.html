@@ -1,4 +1,4 @@
-<base href="/">
+<base href="">
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script src="https://kit.fontawesome.com/8d23004cc3.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
@@ -14,7 +14,6 @@
     }
 </style>
 <div id = "print">
-
 </div>
 <script>
         document.body.style.backgroundImage = "linear-gradient(120deg, #3498db, #8e44ad)";
@@ -43,20 +42,20 @@
         // callback to handle the results
         
         function dataHandler(data) {
-            $('div#print').append('<p>Found ' + data.length + ' movies showing within 5 miles of ' + zipCode +
-                ':</p>');
+            $('ul.list').append('<li>Found ' + data.length + ' movies showing within 5 miles of ' + zipCode +
+                ':</li>');
             console.log(data);
             $.each(data, function (index, movie) {
-                var movieData = '<div class="tile"><p>' + movie.showtimes[0].theatre.name +
+                var movieData = '<div><p>Location: ' + movie.showtimes[0].theatre.name +
                     '</p><br/>';
                 movieData += movie.title;
                 if (movie.ratings) {
-                    movieData += ' (' + movie.ratings[0].code + ') </div>'
+                    movieData += ' (' + movie.ratings[0].code + ')'
                 };
-                $('div#print').append(movieData);
+                $('ul.list').append("<li>" + movieData +
+                    "<p><a href='" +  movie.showtimes[0].ticketURI +
+                        "'>Get Tickets</a></p>"
+                    +"<span></span></li></div>");
             });
         }
     </script>
-
-
-<!-- <script src="scripts/maps.js"></script> -->

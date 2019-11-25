@@ -19,3 +19,84 @@
           </div> -->
 
           
+
+    function getLocation() {
+        var x = navigator.geolocation;
+        x.getCurrentPosition(success, failure);
+
+        function success(position) {
+            mylat = position.coords.latitude;
+            mylng = position.coords.longitude;
+            console.log(mylat, mylng);
+        }
+        function failure() {
+            console.log("error");
+        }
+    }
+
+
+
+
+
+
+    <base href="">
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="https://kit.fontawesome.com/8d23004cc3.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<style type="text/css">
+    div {
+        justify-content: center;
+    }
+</style>
+
+<ul id="list" class="list">
+    </ul>
+<script>
+        document.body.style.backgroundImage = "linear-gradient(120deg, #3498db, #8e44ad)";
+        // construct the url with parameter values
+        var apikey = "fe4kzs7kdv7n5bxdathzdcwb";
+        var baseUrl = "http://data.tmsapi.com/v1.1";
+        var showtimesUrl = baseUrl + '/movies/showings';
+        var zipCode = userInput;
+        var d = new Date();
+        var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    
+        $(document).ready(function () {
+            // send off the query
+                $.ajax({
+                    url: showtimesUrl,
+                    data: {
+                        startDate: today,
+                        // zip: userInput,
+                        lat: 41.878113,
+                        lng: -87.629799,
+                        jsonp: "dataHandler",
+                        api_key: apikey
+                    },
+                    dataType: "jsonp",
+                });
+        });
+    
+        // callback to handle the results
+        
+        function dataHandler(data) {
+            $('ul.list').append('<li>Found ' + data.length + ' movies showing within 5 miles of ' + zipCode +
+                ':</li>');
+            console.log(data);
+            $.each(data, function (index, movie) {
+                var movieData = '<div><p>Location: ' + movie.showtimes[0].theatre.name +
+                    '</p><br/>';
+                movieData += movie.title;
+                if (movie.ratings) {
+                    movieData += ' (' + movie.ratings[0].code + ')'
+                };
+                $('ul.list').append("<li>" + movieData +
+                    "<p><a href='" +  movie.showtimes[0].ticketURI +
+                        "'>Get Tickets</a></p>"
+                    +"<span></span></li></div>");
+            });
+        }
+    </script>
+
+
+<!-- <script src="scripts/maps.js"></script> -->

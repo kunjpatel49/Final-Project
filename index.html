@@ -3,7 +3,7 @@
 
 <head>
     <title>Forelook</title>
-    <base href="/">
+    <base href="">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
@@ -57,9 +57,7 @@
                     aria-selected="true"><i class="fas fa-envelope-open material-icons mdc-list-item__graphic"
                         aria-hidden="true"></i>Contact Us</a>
                 <a id = "nearMe" data-screen="maps" class="mdc-list-item mdc-list-item" href="" tabindex="3"
-                    aria-selected="true"><i class="material-icons">
-                            local_movies
-                            </i>Movies Near Me</a>
+                    aria-selected="true"><i class="fas fa-film material-icons mdc-list-item__graphic"></i>Movies Near Me</a>
             </nav>
         </div>
     </aside>
@@ -86,6 +84,9 @@
         <!----------- Search Bar ----------->
         <div class="search-box">
             <input id="input" class="search-txt" type="text" placeholder="Enter Movie Name or Zipcode">
+            <a id="locationUse" class="search-btn" href="">
+                    <i class="fas fa-search-location"></i>
+            </a>
             <a id="search" class="search-btn" href="">
                 <i class="fas fa-search"></i>
             </a>
