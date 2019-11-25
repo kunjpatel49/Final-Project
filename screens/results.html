@@ -37,7 +37,9 @@
                 var rating = resp[i].mpaa_rating;
             }
 
-            $('ul.list').append("<li id=" + listID + "><span>Movie: " + resp[i].display_title + 
+            $('ul.list').append("<li id=" + listID + "><span>"+
+                "<img src='" + resp[i].multimedia.src + "'><br>" +
+                "Movie: " + resp[i].display_title + 
                 " Rated(" + rating + ")<br>"
                 + 
             '<p>'+ resp[i].headline +'</p>'+

@@ -9,7 +9,7 @@ var resp;
 const db = new Dexie("WatchList");
 /* Database Schema */
 db.version(1).stores({
-    movies: 'id++, titles, rating, location'
+    movies: 'id++, titles, rating, latitude, longitude'
 });
 
 console.log(db.movies.get('Ford v Ferrari'));
@@ -35,7 +35,7 @@ function getLocation() {
             mylat = position.coords.latitude;
             mylng = position.coords.longitude;
             console.log(mylat, mylng);
-            db.movies.put({location: mylat, mylng});
+            db.movies.put({latitude: mylat, longitude: mylng});
         }
     }
     else{
@@ -45,7 +45,7 @@ function getLocation() {
 // need to get location earlier because of latencies and device's GPS response time
 getLocation();
 
-// ============================= Data Fetch from New York Times ===================================
+// ===================================== AJAX load functions ========================================
 
 var userInput;
 var useLocation;
@@ -85,20 +85,23 @@ $('#goHome').on('click',function(){
     return false;
 })
 
-// ==============================================================================================
-
+// if user clicks about, load about.html
 $(document).ready(function () {
     $("#abt").on('click', function () {
         $("#loadUse").load("screens/" + "about.html");
         return false;
     });
 });
+
+// if user clicks profile icon, load profile.html
 $(document).ready(function () {
     $("#photo-icon").on('click', function () {
         $("#loadUse").load("screens/" + "profile.html");
         return false;
     });
 });
+
+// ==============================================================================================
 
 // enter key press event handler
 $('#input').keypress(function(event){
@@ -126,3 +129,12 @@ $('#input').keypress(function(event){
 });
 
 // ==============================================================================================
+// mylat = undefined;
+// mylng = undefined;
+if(mylat == undefined || mylng == undefined){
+    db.movies.get(1, function (lastKnowLocation) {
+        mylat = lastKnowLocation.latitude;
+        mylng = lastKnowLocation.longitude;
+// alert ("Last Know Location: " + mylat + " " + mylng);
+});
+}

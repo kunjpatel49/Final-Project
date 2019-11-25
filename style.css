@@ -70,6 +70,7 @@ body {
 }
 
 ul {
+    justify-content: center
     position: relative;
     width: 450px;
     margin: 100px auto 0;
@@ -78,6 +79,7 @@ ul {
 }
 
 ul li {
+    justify-content: center
     display: flex;
     background-image: linear-gradient(120deg, #3498db, #8e44ad);
     padding: 10px 20px;

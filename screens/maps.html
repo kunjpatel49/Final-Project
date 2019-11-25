@@ -20,12 +20,15 @@
     document.body.style.backgroundImage = "linear-gradient(120deg, #3498db, #8e44ad)";
     // construct the url with parameter values
     var apikey = "y5qfmebb7u43cmwd3evtj8hw";
+
+    // api documentation - http://developer.tmsapi.com/docs/read/data_v1_1/movies/Movies_playing_in_local_theatres
     var baseUrl = "https://data.tmsapi.com/v1.1";
     var showtimesUrl = baseUrl + '/movies/showings';
     var zipCode = userInput;
     var d = new Date();
     var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
- 
+    var _radius = 10;
+
     if(userInput === true){
         $(document).ready(function () {
             console.log("lat: " + mylat + " lng: " + mylng);
@@ -36,6 +39,7 @@
                     startDate: today,
                     lat: mylat,
                     lng: mylng,
+                    radius : 10,
                     jsonp: "dataHandler",
                     api_key: apikey
                 },
@@ -52,6 +56,7 @@
                 data: {
                     startDate: today,
                     zip: userInput,
+                    radius: _radius,
                     jsonp: "dataHandler",
                     api_key: apikey
                 },
@@ -63,8 +68,8 @@
     // callback to handle the results
 
     function dataHandler(data) {
-        $('ul.list').append('<li>Found ' + data.length + ' movies showing within 5 miles of ' + zipCode +
-            ':</li>');
+            $('ul.list').append('<li>Found ' + data.length + ' movies showing within '+ _radius + ' miles of your current location' +
+                ':</li>');
         console.log(data);
         $.each(data, function (index, movie) {
             var movieData = '<div><p>Location: ' + movie.showtimes[0].theatre.name +
