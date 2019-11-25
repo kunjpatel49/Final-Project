@@ -26,9 +26,6 @@
     var d = new Date();
     var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
  
-    if(mylat==undefined || mylng == undefined){
-        getLocation();
-    }
     if(userInput === true){
         $(document).ready(function () {
             console.log("lat: " + mylat + " lng: " + mylng);
