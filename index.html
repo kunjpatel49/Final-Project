@@ -22,7 +22,7 @@
     <meta name="HandheldFriendly" content="true">
 </head>
 
-<body id="content" class="full-landing-image content">
+<body class="full-landing-image content">
     <!-- top nav bar -->
     <header class="mdc-top-app-bar grad">
         <div class="mdc-top-app-bar__row">
@@ -67,33 +67,30 @@
     <div class="mdc-drawer-scrim"></div>
     <div id="contentArea">
         <div class="mdc-top-app-bar--fixed-adjust"></div>
-        <div id="content" class="mdc-typography--body1"></div>
+        <div id="content" class="mdc-typography--body1">
+                <div class = "box">
+                        <h1>Welcome to Forelook</h1>
+                        <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics reviews from the New York Times<br>
+                        And booking is very simple, Just enter your zipcode or click search by location button and all the movies avilable in your 10 mile radius will be shown to you with links to buy tickets.
+                        </h5>
+                </div>
+        
+                <!----------- Search Bar ----------->
+                <div class="search-box">
+                    <input id="input" class="search-txt" type="text" placeholder="Enter Movie Name or Zipcode">
+                    <a id="locationUse" class="search-btn" href="">
+                            <i class="fas fa-search-location"></i>
+                    </a>
+                    <a id="search" class="search-btn" href="">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+                <ul id="list" class="list">
+                    </ul>
+        </div>
     </div>
 
     <!-- FAB button -->
-
-
-    <div id = "loadUse">
-        <div class = "box">
-                <h1>Welcome to Forelook</h1>
-                <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics reviews from the New York Times<br>
-                And booking is very simple, Just enter your zipcode or click search by location button and all the movies avilable in your 10 mile radius will be shown to you with links to buy tickets.
-                </h5>
-        </div>
-
-        <!----------- Search Bar ----------->
-        <div class="search-box">
-            <input id="input" class="search-txt" type="text" placeholder="Enter Movie Name or Zipcode">
-            <a id="locationUse" class="search-btn" href="">
-                    <i class="fas fa-search-location"></i>
-            </a>
-            <a id="search" class="search-btn" href="">
-                <i class="fas fa-search"></i>
-            </a>
-        </div>
-        <ul id="list" class="list">
-            </ul>
-   </div>
 
     <script src="scripts/movies.js"></script>
     <script src="scripts/navbar.js"></script>

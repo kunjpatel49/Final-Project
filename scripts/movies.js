@@ -12,8 +12,6 @@ db.version(1).stores({
     movies: 'id++, titles, rating, latitude, longitude'
 });
 
-console.log(db.movies.get('Ford v Ferrari'));
-
 db.open().catch((error) => {
     console.log(error);
 });
@@ -54,41 +52,40 @@ $('#search').on('click', function () {
 
     // if user inputs a movie name, load results.html 
     if(isNaN(userInput)){
-        $('#loadUse').load("screens/" + "results.html");
+        $('#content').load("screens/" + "results.html");
         return false;
     }
 
-    // if user inputs a zipcode, load maps.html 
+    // if user inputs a zipcode, load theaters.html 
     else{
-        $('.search-box').hide();
-        $("#loadUse").load("screens/" + "maps.html");
+        $("#content").load("screens/" + "theaters.html");
         return false;
     }
 });
 
-// if user chooses to search by their current location, load maps.html
+// if user chooses to search by their current location, load theaters.html
 $('#locationUse').on('click',function(){
     userInput = true;
-    $("#loadUse").load("screens/" + "maps.html");
+    $("#content").load("screens/" + "theaters.html");
     return false;
 })
 
 // if user clicks home from navbar, load home.html 
 $('#home').on('click',function(){
-    $("#loadUse").load("screens/" + "home.html");
+    $("#content").load("screens/" + "home.html");
     return false;
 })
 
 // if user clicks forelook, load home.html
 $('#goHome').on('click',function(){
-    $("#loadUse").load("screens/" + "home.html");
+    $("#content").load("screens/" + "home.html");
     return false;
 })
 
 // if user clicks about, load about.html
 $(document).ready(function () {
     $("#abt").on('click', function () {
-        $("#loadUse").load("screens/" + "about.html");
+        $("#content").load("screens/" + "about.html");
         return false;
     });
 });
@@ -96,7 +93,15 @@ $(document).ready(function () {
 // if user clicks profile icon, load profile.html
 $(document).ready(function () {
     $("#photo-icon").on('click', function () {
-        $("#loadUse").load("screens/" + "profile.html");
+        $("#content").load("screens/" + "profile.html");
+        return false;
+    });
+});
+
+// if user clicks profile icon, load profile.html
+$(document).ready(function () {
+    $("#nearMe").on('click', function () {
+        $("#content").load("screens/" + "maps.html");
         return false;
     });
 });
@@ -111,14 +116,14 @@ $('#input').keypress(function(event){
 
         // if user inputs a movie name, load results.html 
         if(isNaN(userInput)){
-            $('#loadUse').load("screens/" + "results.html");
+            $('#content').load("screens/" + "results.html");
             return false;
         }
     
-        // if user inputs a zipcode, load maps.html 
+        // if user inputs a zipcode, load theaters.html 
         else{
             $('.search-box').hide();
-            $("#loadUse").load("screens/" + "maps.html");
+            $("#content").load("screens/" + "theaters.html");
             return false;
         }  
     }
@@ -131,6 +136,7 @@ $('#input').keypress(function(event){
 // ==============================================================================================
 // mylat = undefined;
 // mylng = undefined;
+
 if(mylat == undefined || mylng == undefined){
     db.movies.get(1, function (lastKnowLocation) {
         mylat = lastKnowLocation.latitude;

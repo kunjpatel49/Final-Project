@@ -1,0 +1,87 @@
+<base href="">
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="https://kit.fontawesome.com/8d23004cc3.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<style type="text/css">
+    .tile {
+        display: inline-block;
+        border: 1px solid grey;
+        background: silver;
+        padding: 4px;
+        text-align: center;
+        font-size: 15px;
+        width: 250px;
+    }
+</style>
+<ul id="list" class="list">
+</ul>
+<script>
+    console.log(userInput);
+    document.body.style.backgroundColor = "#3498db";
+    // construct the url with parameter values
+    var apikey = "2cx79yb2g6h4emq8qs4gz48b";
+
+    // api documentation - http://developer.tmsapi.com/docs/read/data_v1_1/movies/Movies_playing_in_local_theatres
+    var baseUrl = "https://data.tmsapi.com/v1.1";
+    var showtimesUrl = baseUrl + '/movies/showings';
+    var zipCode = userInput;
+    var d = new Date();
+    var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    var _radius = 10;
+
+    if(userInput === true){
+        $(document).ready(function () {
+            console.log("lat: " + mylat + " lng: " + mylng);
+            // send off the query
+                $.ajax({
+                url: showtimesUrl,
+                data: {
+                    startDate: today,
+                    lat: mylat,
+                    lng: mylng,
+                    radius : 10,
+                    jsonp: "dataHandler",
+                    api_key: apikey
+                },
+                dataType: "jsonp",
+            });
+        });
+    }
+    else{
+
+        $(document).ready(function () {
+            // send off the query
+                $.ajax({
+                url: showtimesUrl,
+                data: {
+                    startDate: today,
+                    zip: userInput,
+                    radius: _radius,
+                    jsonp: "dataHandler",
+                    api_key: apikey
+                },
+                dataType: "jsonp",
+            });
+        });
+    }
+
+    // callback to handle the results
+
+    function dataHandler(data) {
+            $('ul.list').append('<li>Found ' + data.length + ' movies showing within '+ _radius + ' miles of your current location' +
+                ':</li>');
+        console.log(data);
+        $.each(data, function (index, movie) {
+            var movieData = '<div><p>Location: ' + movie.showtimes[0].theatre.name +
+                '</p><br/>';
+            movieData += movie.title;
+            if (movie.ratings) {
+                movieData += ' (' + movie.ratings[0].code + ')'
+            };
+            $('ul.list').append("<li>" + movieData +
+                "<p><a href='" + movie.showtimes[0].ticketURI +
+                "'>Get Tickets</a></p>" +
+                "<span></span></li></div>");
+        });
+    }
+</script>

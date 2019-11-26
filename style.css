@@ -1,17 +1,16 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: linear-gradient(120deg, #3498db, #8e44ad);
+    background-color: #3498db;
 }
 
 .grad {
-    background-image: linear-gradient(120deg, #3498db, #8e44ad);
+    background-color: #3498db;
 }
 
 .full-landing-image{
     width: 100%;
     height: 100vh;
-    background: url(bg.jpg) repeat center;
     background-size: cover;
   }
 
@@ -24,15 +23,7 @@ body {
     height: 40px;
     border-radius: 40px;
     padding: 10px;
-}
-
-.search-box:hover > .search-txt {
     width: 240px;
-    padding: 0;
-}
-
-.search-box:hover > .search-btn {
-    background: white;
 }
 
 .search-btn {
@@ -45,7 +36,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.4s;
+    background: white;
+    padding: 0;
 }
 
 .search-txt {
@@ -53,12 +45,9 @@ body {
     background: none;
     outline: none;
     float: left;
-    padding: 0;
     color: white;
     font-size: 16px;
-    transition: 0.4s;
     line-height: 40px;
-    width: 0px;
 }
 
 :root {
@@ -69,32 +58,14 @@ body {
     display: none;
 }
 
-ul {
-    justify-content: center
-    position: relative;
-    width: 450px;
-    margin: 100px auto 0;
+.myCard{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
-    box-sizing: border-box;
-}
-
-ul li {
-    justify-content: center
-    display: flex;
-    background-image: linear-gradient(120deg, #3498db, #8e44ad);
-    padding: 10px 20px;
-    margin: 5px 0;
-    transition: .5s;
-    color : #fff;
-}
-
-ul li:hover {
-    transform: scale(1.06);
-    background: #ff3772;
 }
 
 .box{
-    width: 450px;
     background: rgba(0, 0, 0, 0.4);
     padding: 10px;
     text-align: center;

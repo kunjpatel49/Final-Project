@@ -1,10 +1,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<ul id="list" class="list">
-</ul>
+<base href="">
+<link href="style.css" rel="stylesheet" type="text/css" />
+<div id = "card" style="text-align: center">
+        <div class="mdc-dialog"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="my-dialog-title"
+        aria-describedby="my-dialog-content">
+     <div class="mdc-dialog__container">
+       <div class="mdc-dialog__surface">
+         <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+         <h2 class="mdc-dialog__title" id="my-dialog-title"><!--
+        -->Dialog Title<!--
+      --></h2>
+         <div class="mdc-dialog__content" id="my-dialog-content">
+           Dialog body text goes here.
+         </div>
+         <footer class="mdc-dialog__actions">
+           <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
+             <span class="mdc-button__label">No</span>
+           </button>
+           <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
+             <span class="mdc-button__label">Yes</span>
+           </button>
+         </footer>
+       </div>
+     </div>
+     <div class="mdc-dialog__scrim"></div>
+   </div>
+      </div>
 
 <script>
     var listIDs = [];
-    document.body.style.backgroundImage = "linear-gradient(120deg, #3498db, #8e44ad)";
+    document.body.style.backgroundColor = "#3498db";
     console.log(userInput);
     var favBtn = '<button data-mdc-auto-init="MDCIconButtonToggle"'
     +'class="mdc-list-item__meta mdc-icon-button add-to-favorites"'+
@@ -13,13 +41,16 @@
     'aria-pressed="false">'+
     '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+
     '<i class="material-icons mdc-icon-button__icon">favorite_border</i></button>';
+
+    var cards = '<div class="mdc-card myCard" style="max-width: 440px"><div class="mdc-card__primary-action" tabindex="0">'
+        
     $.get(endpoint + "&query=" + userInput, function (response) {
         resp = response.results;
         console.log(response);
 
         // if no results are found
         if(resp.length == 0){
-            $('ul.list').append('<li><span>Sorry No results found, Please search again!'+
+            $('div#card').append('<li><span>Sorry No results found, Please search again!'+
                     '<a id="search" class="search-btn" href="index.html">' +
                 '<i class="fas fa-search"></i></a>' +
                 '</span></li>');
@@ -37,21 +68,47 @@
                 var rating = resp[i].mpaa_rating;
             }
 
-            $('ul.list').append("<li id=" + listID + "><span>"+
-                "<img src='" + resp[i].multimedia.src + "'><br>" +
-                "Movie: " + resp[i].display_title + 
-                " Rated(" + rating + ")<br>"
-                + 
-            '<p>'+ resp[i].headline +'</p>'+
-            '<p>Short Review: ' + resp[i].summary_short +'</p>'+
-            '<p>'+ resp[i].link.suggested_link_text +' <a href="'+ resp[i].link.url+'">here</a>.</p>'
-            +
-                
-                favBtn +
-                 "</span></li>");
+            // clean up for images not available
+            if(resp[i].multimedia == null){
+                var poster = "no-img-available.png";
+            }
+            else{
+                var poster = resp[i].multimedia.src;
+                var NYTlink = "'"+ resp[i].link.url +"'";
+            }
+
+            // clean up for summaries not available
+            if(resp[i].summary_short == ""){
+                var sReview = "N/A"
+            }
+            else {
+                var sReview = resp[i].summary_short;
+            }
+            $('div#card').append(cards+
+                '<div class="mdc-card demo-card demo-basic-with-header myCard">'+
+                    '<div class="demo-card__primary">'+
+                            '<h2 class="demo-card__title mdc-typography mdc-typography--headline6">' + resp[i].display_title + '</h2>'+
+                            '<h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by '+ resp[i].byline+'</h3></div>'+
+                    '<div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">'+
+                        '<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url('+ poster +')"></div>'  +
+                        '<div class="demo-card__secondary mdc-typography mdc-typography--body2">' + resp[i].headline + '</div></div>' +
+                        '<div class="demo-card__secondary mdc-typography mdc-typography--body2">' + sReview + '</div>' +
+                        '<div class="mdc-card__actions">'+
+                            '<div class="mdc-card__action-buttons">'+
+                               '<button id="'+ listID+'" class="mdc-button mdc-card__action mdc-card__action--button" onclick="getLink('+NYTlink+')">  <span class="mdc-button__ripple"></span> Read More At New York Times</button></div>'+
+                            '<div class="mdc-card__action-icons">'+
+                                '<button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">'+
+                                '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+
+                                '<i class="material-icons mdc-icon-button__icon">favorite_border</i>'+
+                                '</button></div></div></div></div>');
             // db.movies.put({titles: resp[i].display_title, rating: resp[i].mpaa_rating});
         }
         return;
     });
-    console.log(listIDs);
+
+    function getLink (x){
+        window.open(x);
+    }
+
+
 </script>
