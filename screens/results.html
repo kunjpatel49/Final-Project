@@ -2,32 +2,6 @@
 <base href="">
 <link href="style.css" rel="stylesheet" type="text/css" />
 <div id = "card" style="text-align: center">
-        <div class="mdc-dialog"
-        role="alertdialog"
-        aria-modal="true"
-        aria-labelledby="my-dialog-title"
-        aria-describedby="my-dialog-content">
-     <div class="mdc-dialog__container">
-       <div class="mdc-dialog__surface">
-         <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-         <h2 class="mdc-dialog__title" id="my-dialog-title"><!--
-        -->Dialog Title<!--
-      --></h2>
-         <div class="mdc-dialog__content" id="my-dialog-content">
-           Dialog body text goes here.
-         </div>
-         <footer class="mdc-dialog__actions">
-           <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-             <span class="mdc-button__label">No</span>
-           </button>
-           <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
-             <span class="mdc-button__label">Yes</span>
-           </button>
-         </footer>
-       </div>
-     </div>
-     <div class="mdc-dialog__scrim"></div>
-   </div>
       </div>
 
 <script>
@@ -42,7 +16,7 @@
     '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+
     '<i class="material-icons mdc-icon-button__icon">favorite_border</i></button>';
 
-    var cards = '<div class="mdc-card myCard" style="max-width: 440px"><div class="mdc-card__primary-action" tabindex="0">'
+    var cards = '<div class="mdc-card myCard" style="text-align: center; max-width: 440px"><div class="mdc-card__primary-action" tabindex="0">'
         
     $.get(endpoint + "&query=" + userInput, function (response) {
         resp = response.results;
@@ -100,7 +74,7 @@
                                 '<button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">'+
                                 '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+
                                 '<i class="material-icons mdc-icon-button__icon">favorite_border</i>'+
-                                '</button></div></div></div></div>');
+                                '</button></div></div></div></div></div>');
             // db.movies.put({titles: resp[i].display_title, rating: resp[i].mpaa_rating});
         }
         return;
