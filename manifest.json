@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "navy",
     "theme_color": "navy",
-    "description": "Basic Javascript game",
+    "description": "An app to search movies near you and read reviews",
     "icons": [{
         "src": "icons/icon1.png",
         "sizes": "512x512",
