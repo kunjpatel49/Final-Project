@@ -1,16 +1,16 @@
 var cacheName = 'app-v1';
 var assets = [
-    '../index.html',
-    '../scripts/movies.js',
-    '../scripts/navbar.js',
-    '../no-img-available.png',
-    '../style.css',
-    '../screens/about.html',
-    '../screens/home.html',
-    '../screens/maps.html',
-    '../screens/profile.html',
-    '../screens/results.html',
-    '../screens/theaters.html'
+    'index.html',
+    'scripts/movies.js',
+    'scripts/navbar.js',
+    'no-img-available.png',
+    'style.css',
+    'screens/about.html',
+    'screens/home.html',
+    'screens/maps.html',
+    'screens/profile.html',
+    'screens/results.html',
+    'screens/theaters.html'
 ];
 
 //install event
