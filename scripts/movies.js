@@ -32,7 +32,6 @@ function getLocation() {
         function success(position) {
             mylat = position.coords.latitude;
             mylng = position.coords.longitude;
-            console.log(mylat, mylng);
             db.movies.put({latitude: mylat, longitude: mylng});
         }
     }
@@ -99,12 +98,12 @@ $(document).ready(function () {
 });
 
 // if user clicks profile icon, load profile.html
-$(document).ready(function () {
-    $("#nearMe").on('click', function () {
-        $("#content").load("screens/" + "maps.html");
-        return false;
-    });
-});
+// $(document).ready(function () {
+//     $("#nearMe").on('click', function () {
+//         $("#content").load("screens/" + "maps.html");
+//         return false;
+//     });
+// });
 
 // ==============================================================================================
 

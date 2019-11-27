@@ -1,72 +1,238 @@
-<!-- <meta name="viewport" content="initial-scale=1.0">
-<meta charset="utf-8">
+<!DOCTYPE html>
+<html>
 
-<style>
-  /* Always set the map height explicitly to define the size of the div
-   * element that contains the map. */
-  #map {
-    height: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-</style>
+<head>
+  <title>Geocoding service</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://kit.fontawesome.com/8d23004cc3.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 </head>
+
 <body>
-<div id="map"></div>
-<script>
+  <!-- top nav bar -->
+  <header class="mdc-top-app-bar grad">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+        <div id="goHome" class="mdc-top-app-bar__title">
+          Forelook
+        </div>
+      </section>
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+        <a id="photo-icon" href="" class="material-icons mdc-top-app-bar__action-item" aria-label="Take A Photo"><i
+            class="fas fa-user"></i></a>
+        <a id="grade-icon profile" href="" class="material-icons mdc-top-app-bar__action-item" aria-label="Watchlist"><i
+            class="fas fa-heart"></i></a>
+    </div>
+  </header>
 
-  // Initialize and add the map
-    var map;
-    var markers = [];
-    function initMap() {
-        // The location of Uluru
-        var chicago = {
-            lat: 41.8781,
-            lng: -87.6298
-        };
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 11,
-            center: chicago
-        });
-        // The marker, positioned at Uluru
-    }
-    function createMarkers(record) {
-        var latitude = parseFloat(record.location.latitude);
-        var longitude = parseFloat(record.location.longitude);
-        var loc = {
-            lat: mylat,
-            lng: mylng
-        };
+  <!-- the navigation drawer -->
+  <aside class="mdc-drawer mdc-drawer--modal grad" data-mdc-auto-init="MDCDrawer">
+    <div class="mdc-drawer__header">
+      <h3 class="mdc-drawer__title">Menu</h3>
+    </div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list">
+        <a id="home" data-screen="home" class="mdc-list-item mdc-list-item--activated" href="../index.html" tabindex="0"
+          aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Home</a>
+        <a id="abt" data-screen="about" class="nav mdc-list-item mdc-list-item" href="about.html" tabindex="1"
+          aria-selected="true"><i class="fas fa-info-circle material-icons mdc-list-item__graphic"
+            aria-hidden="true"></i>About</a>
+        <a data-screen="contact" class="mdc-list-item mdc-list-item" href="#" tabindex="2" aria-selected="true"><i
+            class="fas fa-envelope-open material-icons mdc-list-item__graphic" aria-hidden="true"></i>Contact Us</a>
+        <a id="nearMe" data-screen="maps" class="mdc-list-item mdc-list-item" href="maps.html" tabindex="3"
+          aria-selected="true"><i class="fas fa-film material-icons mdc-list-item__graphic"></i>Movies Near Me</a>
+      </nav>
+    </div>
+  </aside>
+  <div id="map"></div>
 
-        var contentString = "<div class=info style= text-align: center>" + "<h3>" +" at " + "</h3>" + "<p> Address: " +  "<br>Date: " +  "<br>Rating: "  + "<br>CC: " +"<br><a href='https://www.google.com/maps/search/?api=1&query=" + "'>" + "Get Directions" + "</a>" + "</p>" + "</div>";
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
-        var marker = new google.maps.Marker({
-            position: loc,
-            map: map,
-            title: "Hi"
-        });
-        marker.addListener('click', function() {
-            infowindow.open(map, marker);
-            if(marker.getAnimation() !== null) {
-                marker.setAnimation(null);
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-        });
-        markers.push(marker);
-    }
-    function setMapOnAll(map) {
-        for(var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
+  <script>
+    /* ===============================================================================================
+: : Get user's current location
+ ================================================================================================*/
+
+    const db = new Dexie("WatchList");
+    /* Database Schema */
+    db.version(1).stores({
+      movies: 'id++, titles, rating, latitude, longitude'
+    });
+
+    db.open().catch((error) => {
+      console.log(error);
+    });
+
+    var mylat;
+    var mylng;
+    var apikey = "exusu77nhjhhfuk995fegwvk";
+
+    // api documentation - http://developer.tmsapi.com/docs/read/data_v1_1/movies/Movies_playing_in_local_theatres
+    var baseUrl = "https://data.tmsapi.com/v1.1";
+    var showtimesUrl = baseUrl + '/movies/showings';
+    var d = new Date();
+    var today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    var _radius = 10;
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        var x = navigator.geolocation;
+        x.getCurrentPosition(success);
+
+        function success(position) {
+          mylat = position.coords.latitude;
+          mylng = position.coords.longitude;
+          db.movies.put({
+            latitude: mylat,
+            longitude: mylng
+          });
+
+          if (mylat === undefined || mylng === undefined) {
+            db.movies.get(1, function (lastKnowLocation) {
+              mylat = lastKnowLocation.latitude;
+              mylng = lastKnowLocation.longitude;
+              // alert ("Last Know Location: " + mylat + " " + mylng);
+            });
+          }
+          $.ajax({
+            url: showtimesUrl,
+            data: {
+              startDate: today,
+              lat: mylat,
+              lng: mylng,
+              radius: 10,
+              jsonp: "dataHandler",
+              api_key: apikey
+            },
+            dataType: "jsonp",
+          });
+
         }
+      } else {
+        alert(
+          "Geolocation is not supported by your browser, but no worries you still can search by entering your zipcode."
+        );
+      }
     }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0UFLZGzVPnpsL404NoKqh0WdR996qPNc&callback=initMap">
-</script> -->
+
+    var theaters = [];
+    function dataHandler(data) {
+      $.each(data, function (index, movie) {
+          theaters.push(movie.showtimes[0].theatre.name);
+      });
+      for(var j = 0; j<theaters.length; j++){
+        
+        $.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + theaters[j] + "&key=AIzaSyA_ozD9-Pzw4b7Z0vdPGDuaiIw0DNJM9Vc" , function (response) {
+          var r = response.results;
+          for(var u = 0 ; u < r.length ; u++){
+                        
+                            var addr = r[u].formatted_address;
+                            createMarkers(r[u].geometry, addr, name);
+                        };
+        });
+      }
+    }
+  </script>
+
+
+
+  <script>
+    // need to get location earlier because of latencies and device's GPS response time
+    getLocation();
+    var geocoder;
+    var map;
+        var markers = [];
+        function initMap() {
+            // The location of Uluru
+            var chicago = {
+                lat: 41.8781,
+                lng: -87.6298
+            };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 11,
+                center: chicago
+            });
+            // The marker, positioned at Uluru
+        }
+
+        function createMarkers(record, address, name) {
+          
+            var latitude = parseFloat(record.location.lat);
+            var longitude = parseFloat(record.location.lng);
+            var loc = {
+                lat: latitude,
+                lng: longitude
+            };
+            var contentString = "<p Venue: >"+name+"</p><p>Address: " + address +"</p>"
+            + "<p><a href='https://www.google.com/maps/search/?api=1&query=" + latitude + ", " + longitude + "'>" + "Get Directions" + "</a></p>";
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            var marker = new google.maps.Marker({
+                position: loc,
+                map: map,
+                title: name
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+                if(marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            });
+            markers.push(marker);
+        }
+        function setMapOnAll(map) {
+            for(var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+  </script>
+  
+  <script>
+    window.mdc.autoInit();
+    const drawer = document.querySelector('.mdc-drawer').MDCDrawer;
+
+    // open drawer on nav icon
+    document.getElementsByClassName("mdc-top-app-bar__navigation-icon")[0].addEventListener("click", function () {
+      drawer.open = true;
+    });
+
+    // close drawer on selection
+    let navs = document.getElementsByClassName("mdc-list-item");
+
+    for (let i = 0; i < navs.length; i++) {
+      navs[i].addEventListener("click", function () {
+        drawer.open = false;
+      })
+    };
+  </script>
+  <!-- <script src="../scripts/movies.js"></script> -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_ozD9-Pzw4b7Z0vdPGDuaiIw0DNJM9Vc&callback=initMap">
+  </script>
+
+</body>
+
+</html>

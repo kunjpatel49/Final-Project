@@ -7,7 +7,6 @@
 <script>
     var listIDs = [];
     document.body.style.backgroundColor = "#3498db";
-    console.log(userInput);
     var favBtn = '<button data-mdc-auto-init="MDCIconButtonToggle"'
     +'class="mdc-list-item__meta mdc-icon-button add-to-favorites"'+
     'aria-label="Add to favorites"'+
@@ -20,7 +19,6 @@
         
     $.get(endpoint + "&query=" + userInput, function (response) {
         resp = response.results;
-        console.log(response);
 
         // if no results are found
         if(resp.length == 0){
@@ -69,7 +67,7 @@
                         '<div class="demo-card__secondary mdc-typography mdc-typography--body2">' + sReview + '</div>' +
                         '<div class="mdc-card__actions">'+
                             '<div class="mdc-card__action-buttons">'+
-                               '<button id="'+ listID+'" class="mdc-button mdc-card__action mdc-card__action--button" onclick="getLink('+NYTlink+')">  <span class="mdc-button__ripple"></span> Read More At New York Times</button></div>'+
+                               '<button id="'+ listID +'" class="mdc-button mdc-card__action mdc-card__action--button" onclick="getLink('+NYTlink+')">  <span class="mdc-button__ripple"></span> Read More At New York Times</button></div>'+
                             '<div class="mdc-card__action-icons">'+
                                 '<button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">'+
                                 '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+

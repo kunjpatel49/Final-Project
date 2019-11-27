@@ -13,13 +13,13 @@
         width: 250px;
     }
 </style>
+<div id="map"></div>
 <div id = "card" style="text-align: center">
     </div>
 <script>
-    console.log(userInput);
     document.body.style.backgroundColor = "#3498db";
     // construct the url with parameter values
-    var apikey = "2cx79yb2g6h4emq8qs4gz48b";
+    var apikey = "exusu77nhjhhfuk995fegwvk";
 
     // api documentation - http://developer.tmsapi.com/docs/read/data_v1_1/movies/Movies_playing_in_local_theatres
     var baseUrl = "https://data.tmsapi.com/v1.1";
@@ -32,7 +32,6 @@
 
     if(userInput === true){
         $(document).ready(function () {
-            console.log("lat: " + mylat + " lng: " + mylng);
             // send off the query
                 $.ajax({
                 url: showtimesUrl,
@@ -67,15 +66,15 @@
     }
 
     // callback to handle the results
-
+    userInput = [];
     function dataHandler(data) {
-        console.log(data);
 
         $('div#card').append('<li>Found ' + data.length + ' movies showing within '+ _radius + ' miles of your current location' +
                 ':</li>');
                 
         $.each(data, function (index, movie) {
             var theatre = movie.showtimes[0].theatre.name;
+            userInput.push(theatre);
             var tikckets = "'"+ movie.showtimes[0].ticketURI +"'";
             if (movie.ratings == undefined) {
                 var ratings = "N/A";
@@ -94,6 +93,7 @@
                         '<div class="mdc-card__actions">'+
                             '<div class="mdc-card__action-buttons">'+
                                '<button id="" class="mdc-button mdc-card__action mdc-card__action--button" onclick="getLink('+tikckets+')">  <span class="mdc-button__ripple"></span> Get Tickets</button></div>'+
+                               ' <span class="mdc-button__ripple"></span> <a href="screens/maps.html">Directions</a></div>'+
                             '<div class="mdc-card__action-icons">'+
                                 '<button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">'+
                                 '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+
@@ -102,6 +102,7 @@
 
         });
     };
+    
     function getLink (x){
         window.open(x);
     }
