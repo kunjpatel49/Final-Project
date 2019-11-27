@@ -29,7 +29,7 @@
     <!-- Include dexie.js -->
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <!-- Meta tags for responsive design -->
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=6,user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="HandheldFriendly" content="true">
 </head>
@@ -94,7 +94,7 @@
 
             <!----------- Search Bar ----------->
             <div class="search-box">
-                <input id="input" type="text" class="search-txt" placeholder="Enter Movie Name or Zipcode">
+                <input id="input" type="text" aria-label="Search with zipcode or movie title" class="search-txt" placeholder="Enter Movie Name or Zipcode">
                 <a id="locationUse" aria-label="Search with location" class="search-btn" href="">
                     <i class="fas fa-search-location"></i>
                 </a>
