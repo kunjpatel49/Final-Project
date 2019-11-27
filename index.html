@@ -3,6 +3,16 @@
 
 <head>
     <title>Forelook</title>
+
+    <!----  Safari's Meta Tag to make this app install-able on iOS  ---->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="navy">
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <meta name="theme-color" content="navy">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon1.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="192-192" href="icons/icon2.png">
+
     <base href="">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="manifest" href="service-workers/manifest.json">
@@ -29,7 +39,7 @@
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                 <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
-                <div id = "goHome" class="mdc-top-app-bar__title">
+                <div id="goHome" class="mdc-top-app-bar__title">
                     Forelook
                 </div>
             </section>
@@ -57,38 +67,42 @@
                 <a data-screen="contact" class="mdc-list-item mdc-list-item" href="#" tabindex="2"
                     aria-selected="true"><i class="fas fa-envelope-open material-icons mdc-list-item__graphic"
                         aria-hidden="true"></i>Contact Us</a>
-                <a id = "nearMe" data-screen="maps" class="mdc-list-item mdc-list-item" href="screens/maps.html" tabindex="3"
-                    aria-selected="true"><i class="fas fa-film material-icons mdc-list-item__graphic"></i>Movies Near Me</a>
+                <a id="nearMe" data-screen="maps" class="mdc-list-item mdc-list-item" href="screens/maps.html"
+                    tabindex="3" aria-selected="true"><i
+                        class="fas fa-film material-icons mdc-list-item__graphic"></i>Movies Near Me</a>
             </nav>
         </div>
     </aside>
 
-    
+
 
     <div class="mdc-drawer-scrim"></div>
     <div id="contentArea">
         <div class="mdc-top-app-bar--fixed-adjust"></div>
         <div id="content" class="mdc-typography--body1">
-                <div class = "box">
-                        <h1>Welcome to Forelook</h1>
-                        <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics reviews from the New York Times<br>
-                        And booking is very simple, Just enter your zipcode or click search by location button and all the movies avilable in your 10 mile radius will be shown to you with links to buy tickets.
-                        For Directions, Navigate to Movies Near Me section, you will get locations for all the venues with an info screen with address and directions.
-                        </h5>
-                </div>
-        
-                <!----------- Search Bar ----------->
-                <div class="search-box">
-                    <input id="input" class="search-txt" type="text" placeholder="Enter Movie Name or Zipcode">
-                    <a id="locationUse" class="search-btn" href="">
-                            <i class="fas fa-search-location"></i>
-                    </a>
-                    <a id="search" class="search-btn" href="">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </div>
-                <ul id="list" class="list">
-                    </ul>
+            <div class="box">
+                <h1>Welcome to Forelook</h1>
+                <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics
+                    reviews from the New York Times<br>
+                    And booking is very simple, Just enter your zipcode or click search by location button and all the
+                    movies avilable in your 10 mile radius will be shown to you with links to buy tickets.
+                    For Directions, Navigate to Movies Near Me section, you will get locations for all the venues with
+                    an info screen with address and directions.
+                </h5>
+            </div>
+
+            <!----------- Search Bar ----------->
+            <div class="search-box">
+                <input id="input" class="search-txt" type="text" placeholder="Enter Movie Name or Zipcode">
+                <a id="locationUse" class="search-btn" href="">
+                    <i class="fas fa-search-location"></i>
+                </a>
+                <a id="search" class="search-btn" href="">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+            <ul id="list" class="list">
+            </ul>
         </div>
     </div>
 
@@ -97,5 +111,6 @@
     <script src="scripts/movies.js"></script>
     <script src="scripts/navbar.js"></script>
     <script src="service-workers/app.js"></script>
-</body> 
+</body>
+
 </html>
