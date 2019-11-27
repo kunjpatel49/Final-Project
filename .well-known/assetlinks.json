@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.forelook.app",
+      "sha256_cert_fingerprints": ["E9:12:AF:6E:0C:EA:71:C6:B5:47:BF:1B:42:C3:4E:ED:71:55:FF:38:29:DA:2C:EA:E6:D4:60:BB:A1:6D:45:99"]
+    }
+  }
+]
