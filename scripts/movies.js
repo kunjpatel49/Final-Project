@@ -69,6 +69,14 @@ $('#locationUse').on('click',function(){
     return false;
 })
 
+// if user clicks contact us from the navbar, load theaters.html
+$(document).ready(function () {
+    $("#contactus").on('click', function () {
+        $("#content").load("screens/" + "profile.html");
+        return false;
+    });
+});
+
 // if user clicks home from navbar, load home.html 
 $('#home').on('click',function(){
     $("#content").load("screens/" + "home.html");
