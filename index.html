@@ -5,6 +5,7 @@
     <title>Forelook</title>
     <base href="">
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="manifest" href="service-workers/manifest.json">
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -72,6 +73,7 @@
                         <h1>Welcome to Forelook</h1>
                         <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics reviews from the New York Times<br>
                         And booking is very simple, Just enter your zipcode or click search by location button and all the movies avilable in your 10 mile radius will be shown to you with links to buy tickets.
+                        For Directions, Navigate to Movies Near Me section, you will get locations for all the venues with an info screen with address and directions.
                         </h5>
                 </div>
         
@@ -94,7 +96,7 @@
 
     <script src="scripts/movies.js"></script>
     <script src="scripts/navbar.js"></script>
-
+    <script src="service-workers/app.js"></script>
 </body>
 
 </html>

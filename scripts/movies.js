@@ -133,13 +133,11 @@ $('#input').keypress(function(event){
 });
 
 // ==============================================================================================
-// mylat = undefined;
-// mylng = undefined;
 
 if(mylat == undefined || mylng == undefined){
     db.movies.get(1, function (lastKnowLocation) {
         mylat = lastKnowLocation.latitude;
         mylng = lastKnowLocation.longitude;
-// alert ("Last Know Location: " + mylat + " " + mylng);
+
 });
 }
