@@ -176,5 +176,4 @@ $("#install").on('click', function () {
 
     });
   }
-  deferredPrompt.stopPropagation();
 });
