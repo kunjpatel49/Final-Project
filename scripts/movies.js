@@ -49,8 +49,14 @@ var useLocation;
 $('#search').on('click', function () {
     userInput = $('#input').val();
 
+    // if user chooses to search by their current location, load theaters.html
+    if(userInput == ""){
+        userInput = true;
+        $("#content").load("screens/" + "theaters.html");
+        return false;
+    }
     // if user inputs a movie name, load results.html 
-    if(isNaN(userInput)){
+    else if(isNaN(userInput)){
         $('#content').load("screens/" + "results.html");
         return false;
     }
@@ -61,13 +67,6 @@ $('#search').on('click', function () {
         return false;
     }
 });
-
-// if user chooses to search by their current location, load theaters.html
-$('#locationUse').on('click',function(){
-    userInput = true;
-    $("#content").load("screens/" + "theaters.html");
-    return false;
-})
 
 // if user clicks contact us from the navbar, load theaters.html
 $(document).ready(function () {
@@ -121,8 +120,14 @@ $('#input').keypress(function(event){
     if(keycode == '13'){
         userInput = $('#input').val();
 
+        // if user chooses to search by their current location, load theaters.html
+        if(userInput == ""){
+            userInput = true;
+            $("#content").load("screens/" + "theaters.html");
+            return false;
+        }
         // if user inputs a movie name, load results.html 
-        if(isNaN(userInput)){
+        else if(isNaN(userInput)){
             $('#content').load("screens/" + "results.html");
             return false;
         }
