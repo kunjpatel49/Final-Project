@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #3498db;
+    background-image: url('bg.jpg');
 }
 
 .grad {
