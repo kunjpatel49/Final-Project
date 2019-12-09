@@ -6,17 +6,6 @@ var resp;
 
 // =================================== Dexie Setup =================================================
 
-Dexie.exists("WatchList").then(function (exists) {
-    if (exists){
-        console.log("Database exists");
-        return;
-    }
-    else{
-        console.log("Database doesn't exist create DB");
-}
-}).catch(function (error) {
-    console.error("Oops, an error occurred when trying to check database existance");
-});
 const db = new Dexie("WatchList");
     /* Database Schema */
     db.version(1).stores({
