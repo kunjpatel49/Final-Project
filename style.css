@@ -8,22 +8,40 @@ body {
     background-color: #3498db;
 }
 
-.full-landing-image{
+.full-landing-image {
     width: 100%;
     height: 100vh;
     background-size: cover;
-  }
+}
 
 .search-box {
     position: absolute;
-    top: 60%;
+    top: 80%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background: #2f3640;
     height: 40px;
     border-radius: 40px;
     padding: 10px;
     width: 240px;
+}
+
+@media only screen and (min-width: 500px) {
+
+    /* your conditional / responsive CSS inside this condition */
+
+    .search-box {
+        position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2f3640;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+    width: 240px;
+    }
+
 }
 
 .search-btn {
@@ -58,20 +76,19 @@ body {
     display: none;
 }
 
-.myCard{
+.myCard {
     text-align: center;
     justify-content: center;
     align-items: center;
     padding: 10px;
 }
 
-.box{
+.box {
     background: rgba(0, 0, 0, 0.4);
     padding: 10px;
     text-align: center;
     margin: auto;
     margin-top: 5%;
     color: white;
-    font-family: 'Century Gothic',sans-serif;
-  }
-  
+    font-family: 'Century Gothic', sans-serif;
+}
