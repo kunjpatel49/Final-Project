@@ -1,3 +1,4 @@
+
 <div class = "box">
         <h1>Welcome to Forelook</h1>
         <h5>Planning a movie night and not sure which to watch? Search for movie by their names and get critics
@@ -19,4 +20,28 @@
     </a>
 </div>
 
-<script src="scripts/movies.js"></script>
+<script>
+    var userInput;
+var useLocation;
+$('#search').on('click', function () {
+    userInput = $('#input').val();
+
+    // if user chooses to search by their current location, load theaters.html
+    if (userInput == "") {
+        userInput = true;
+        $("#content").load("screens/" + "theaters.html");
+        return false;
+    }
+    // if user inputs a movie name, load results.html 
+    else if (isNaN(userInput)) {
+        $('#content').load("screens/" + "results.html");
+        return false;
+    }
+
+    // if user inputs a zipcode, load theaters.html 
+    else {
+        $("#content").load("screens/" + "theaters.html");
+        return false;
+    }
+});
+</script>
