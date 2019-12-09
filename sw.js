@@ -1,6 +1,7 @@
 var cacheName = 'app-v1';
 var assets = [
     'index.html',
+    'bg.jpg',
     'scripts/movies.js',
     'scripts/navbar.js',
     'no-img-available.png',
