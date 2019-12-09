@@ -6,15 +6,26 @@ var resp;
 
 // =================================== Dexie Setup =================================================
 
+Dexie.exists("WatchList").then(function (exists) {
+    if (exists){
+        console.log("Database exists");
+        return;
+    }
+    else{
+        console.log("Database doesn't exist create DB");
+}
+}).catch(function (error) {
+    console.error("Oops, an error occurred when trying to check database existance");
+});
 const db = new Dexie("WatchList");
-/* Database Schema */
-db.version(1).stores({
-    movies: 'id++, titles, rating, latitude, longitude'
-});
+    /* Database Schema */
+    db.version(1).stores({
+        movies: 'id++, titles, rating, latitude, longitude'
+    });
 
-db.open().catch((error) => {
-    console.log(error);
-});
+    db.open().catch((error) => {
+        console.log(error);
+    });
 
 // ===============================================================================================
 
@@ -24,18 +35,21 @@ db.open().catch((error) => {
 
 var mylat;
 var mylng;
+
 function getLocation() {
-    if(navigator.geolocation){
+    if (navigator.geolocation) {
         var x = navigator.geolocation;
         x.getCurrentPosition(success);
 
         function success(position) {
             mylat = position.coords.latitude;
             mylng = position.coords.longitude;
-            db.movies.put({latitude: mylat, longitude: mylng});
+            db.movies.put({
+                latitude: mylat,
+                longitude: mylng
+            });
         }
-    }
-    else{
+    } else {
         alert("Geolocation is not supported by your browser, but no worries you still can search by entering your zipcode.");
     }
 }
@@ -50,19 +64,19 @@ $('#search').on('click', function () {
     userInput = $('#input').val();
 
     // if user chooses to search by their current location, load theaters.html
-    if(userInput == ""){
+    if (userInput == "") {
         userInput = true;
         $("#content").load("screens/" + "theaters.html");
         return false;
     }
     // if user inputs a movie name, load results.html 
-    else if(isNaN(userInput)){
+    else if (isNaN(userInput)) {
         $('#content').load("screens/" + "results.html");
         return false;
     }
 
     // if user inputs a zipcode, load theaters.html 
-    else{
+    else {
         $("#content").load("screens/" + "theaters.html");
         return false;
     }
@@ -77,13 +91,13 @@ $(document).ready(function () {
 });
 
 // if user clicks home from navbar, load home.html 
-$('#home').on('click',function(){
+$('#home').on('click', function () {
     $("#content").load("screens/" + "home.html");
     return false;
 })
 
 // if user clicks forelook, load home.html
-$('#goHome').on('click',function(){
+$('#goHome').on('click', function () {
     $("#content").load("screens/" + "home.html");
     return false;
 })
@@ -115,29 +129,29 @@ $(document).ready(function () {
 // ==============================================================================================
 
 // enter key press event handler
-$('#input').keypress(function(event){
+$('#input').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    if(keycode == '13'){
+    if (keycode == '13') {
         userInput = $('#input').val();
 
         // if user chooses to search by their current location, load theaters.html
-        if(userInput == ""){
+        if (userInput == "") {
             userInput = true;
             $("#content").load("screens/" + "theaters.html");
             return false;
         }
         // if user inputs a movie name, load results.html 
-        else if(isNaN(userInput)){
+        else if (isNaN(userInput)) {
             $('#content').load("screens/" + "results.html");
             return false;
         }
-    
+
         // if user inputs a zipcode, load theaters.html 
-        else{
+        else {
             $('.search-box').hide();
             $("#content").load("screens/" + "theaters.html");
             return false;
-        }  
+        }
     }
     //Stop the event from propogation to other handlers
     //If this line will be removed, then keypress event handler attached 
@@ -147,38 +161,38 @@ $('#input').keypress(function(event){
 
 // ==============================================================================================
 
-if(mylat == undefined || mylng == undefined){
+if (mylat == undefined || mylng == undefined) {
     db.movies.get(1, function (lastKnowLocation) {
         mylat = lastKnowLocation.latitude;
         mylng = lastKnowLocation.longitude;
 
-});
+    });
 }
 
 // install button prompt
 let deferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
 });
 
 $("#install").on('click', function () {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    console.log(deferredPrompt)
-    deferredPrompt.userChoice.then(function(choiceResult){
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        console.log(deferredPrompt)
+        deferredPrompt.userChoice.then(function (choiceResult) {
 
-      if (choiceResult.outcome === 'accepted') {
-      console.log('Your PWA has been installed');
-    } else {
-      console.log('User chose to not install your PWA');
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Your PWA has been installed');
+            } else {
+                console.log('User chose to not install your PWA');
+            }
+
+            deferredPrompt = null;
+
+        });
     }
-
-    deferredPrompt = null;
-
-    });
-  }
 });

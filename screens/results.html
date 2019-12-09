@@ -22,11 +22,12 @@
 
         // if no results are found
         if(resp.length == 0){
-            $('div#card').append('<li><span>Sorry No results found, Please search again!'+
+            $('div#card').append('<li style="color:white"><span>Sorry No results found, Please search again!'+
                     '<a id="search" class="search-btn" href="index.html">' +
                 '<i class="fas fa-search"></i></a>' +
                 '</span></li>');
         }
+        $('div#card').append('<li style="color:white">Found ' + resp.length + ' movies.</li>');
 
         for (var i = 0; i < resp.length; i++) {
             var listID = resp[i].display_title.split(' ').join('-');
@@ -73,7 +74,6 @@
                                 '<i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>'+
                                 '<i class="material-icons mdc-icon-button__icon">favorite_border</i>'+
                                 '</button></div></div></div></div></div>');
-            // db.movies.put({titles: resp[i].display_title, rating: resp[i].mpaa_rating});
         }
         return;
     });

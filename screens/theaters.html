@@ -69,7 +69,7 @@
     userInput = [];
     function dataHandler(data) {
 
-        $('div#card').append('<li>Found ' + data.length + ' movies showing within '+ _radius + ' miles of your current location' +
+        $('div#card').append('<li style="color:white">Found ' + data.length + ' movies showing within '+ _radius + ' miles of your current location' +
                 ':</li>');
                 
         $.each(data, function (index, movie) {
